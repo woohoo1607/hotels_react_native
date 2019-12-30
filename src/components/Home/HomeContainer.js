@@ -3,12 +3,21 @@ import {connect} from "react-redux";
 import Home from "./Home";
 import {getMe} from "../../reducers/userReducer"
 import {getHotels} from "../../reducers/hotelsReducer";
+import { Font} from "expo";
+import { Ionicons } from '@expo/vector-icons';
 
 class HomeContainer extends React.Component {
 
     componentDidMount() {
         this.props.getMe();
         this.props.getHotels();
+    }
+    async componentWillMount() {
+        await Font.loadAsync({
+            FontAwesome: require("native-base/Fonts/FontAwesome.ttf"),
+            'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
+            ...Ionicons.font
+        });
     }
 
     render () {
