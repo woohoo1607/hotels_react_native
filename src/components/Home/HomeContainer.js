@@ -7,6 +7,9 @@ import * as Font from "expo-font";
 import { Ionicons } from '@expo/vector-icons';
 
 class HomeContainer extends React.Component {
+    state = {
+        isLoad: false
+    };
 
     async componentDidMount() {
         await Font.loadAsync({
@@ -14,6 +17,7 @@ class HomeContainer extends React.Component {
             'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
             ...Ionicons.font
         });
+        this.setState({isLoad: true});
         this.props.getMe();
         this.props.getHotels();
 
@@ -21,9 +25,13 @@ class HomeContainer extends React.Component {
 
     render () {
         return (
-            <Home hotels={this.props.hotels}
+            <>
+            {
+                this.state.isLoad && <Home hotels={this.props.hotels}
                   user={this.props.user}
-            />
+                />
+            }
+            </>
         )
     }
 }
